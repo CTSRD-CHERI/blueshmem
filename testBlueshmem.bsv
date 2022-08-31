@@ -37,7 +37,7 @@ module mkTestBlueshmem(Empty);
   rule parent(init_done && (pid!=0));
     shmem[0].enq(zeroExtend(ctr));
     ctr <= ctr+1;
-    $display("%05t: Parent TX=%03d", $time, ctr);
+    $display("[0] %05t: Parent TX=%03d", $time, ctr);
     $fflush();
     if(ctr==100)
 	$finish();
@@ -50,7 +50,7 @@ module mkTestBlueshmem(Empty);
       if(j<3) // forward message if not last child
 	shmem[j].enq(v);
       Bit#(32) vi = truncate(v);
-      $write("%05t:", $time);
+      $write("[%1d] %05t:", child_number, $time);
       for(Integer j=0; fromInteger(j)<child_number; j=j+1)
 	$write("\t\t");
       $display("Child-%1d RX=%03d", child_number, vi);
