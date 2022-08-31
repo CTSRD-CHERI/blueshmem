@@ -1,3 +1,12 @@
+/*****************************************************************************
+ * Simple test of forking Bluesim simulations and communicating between them
+ * via shared memory FIFOs.
+ *****************************************************************************
+ * Copyright (c) 2022 Simon W. Moore
+ * All rights reserved
+ * License: BSD 2-clause - see the LICENSE file
+ *****************************************************************************/
+
 import Vector :: *;
 import FIFOF :: *;
 import Blueshmem :: *;

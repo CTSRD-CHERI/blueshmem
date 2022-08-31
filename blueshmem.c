@@ -2,7 +2,9 @@
  * C Library to provide access to fork() for process creation and
  * shared memory for communication
  *****************************************************************************
- * Copyright (c) Simon Moore, August 2022
+ * Copyright (c) 2022 Simon W. Moore
+ * All rights reserved
+ * License: BSD 2-clause - see the LICENSE file
  *****************************************************************************/
 
 #include <semaphore.h>

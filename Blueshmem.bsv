@@ -1,4 +1,14 @@
+/*****************************************************************************
+ * Simple proof-of-concept library to allow Bluesim simulations to be forked
+ * with FIFO communication via shared memory.
+ *****************************************************************************
+ * Copyright (c) 2022 Simon W. Moore
+ * All rights reserved
+ * License: BSD 2-clause - see the LICENSE file
+ *****************************************************************************/
+
 package Blueshmem;
+
 
 import FIFOF :: *;
 
