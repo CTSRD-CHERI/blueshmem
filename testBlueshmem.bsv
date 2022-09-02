@@ -11,13 +11,16 @@ import Vector :: *;
 import FIFOF :: *;
 import Blueshmem :: *;
 
+typedef Bit#(80) MyShmemBufT;
+
+
 module mkTestBlueshmem(Empty);
 
-  Vector#(3,FIFOF#(BlueshmemBufT)) shmem <- replicateM(mkBlueshmemFIFO);
+  Vector#(3,FIFOF#(MyShmemBufT)) shmem <- replicateM(mkBlueshmemFIFO);
   Reg#(Bool) shmem_init_done <- mkReg(False);
   Reg#(Bool) init_done <- mkReg(False);
   Reg#(BlueshmemUInt32) pid <- mkReg(-1);
-  Reg#(Bit#(32)) ctr <- mkReg(0);
+  Reg#(Bit#(64)) ctr <- mkReg(0);
   Reg#(Bit#(20)) child_wait <- mkReg(0);
   Reg#(Bit#(20)) parent_wait <- mkReg(0);
   Reg#(UInt#(3)) child_number <- mkReg(0);
@@ -39,13 +42,13 @@ module mkTestBlueshmem(Empty);
     ctr <= ctr+1;
     $display("[0] %05t: Parent TX=%03d", $time, ctr);
     $fflush();
-    if(ctr==100)
+    if(ctr==1000000)
 	$finish();
   endrule
 
   for(Integer j=1; j<=3; j=j+1)
     rule child(init_done && (pid==0) && (child_number==fromInteger(j)));
-      BlueshmemBufT v = shmem[j-1].first();
+      MyShmemBufT v = shmem[j-1].first();
       shmem[j-1].deq();
       if(j<3) // forward message if not last child
 	shmem[j].enq(v);
@@ -55,7 +58,7 @@ module mkTestBlueshmem(Empty);
 	$write("\t\t");
       $display("Child-%1d RX=%03d", child_number, vi);
       $fflush();
-      if(vi==100) $finish();
+      if(vi==1000000) $finish();
     endrule
   
   rule child_active_indicator(init_done && (pid==0));
