@@ -20,8 +20,8 @@ typedef Bit#(32) BlueshmemUInt32; // unsigned 32-bit integer
 import "BDPI" function ActionValue#(BlueshmemUInt32) blueshmem_fork();
 import "BDPI" function Action blueshmem_wait();
 import "BDPI" function ActionValue#(BlueshmemPtr) blueshmem_allocate(BlueshmemUInt32 nint);
-import "BDPI" function Action blueshmem_write(BlueshmemPtr shmem_addr, Bit#(n) data, BlueshmemUInt32 nint);
-import "BDPI" function Bit#(n) blueshmem_read(BlueshmemPtr shmem_addr, BlueshmemUInt32 nint);
+import "BDPI" function Action blueshmem_write(BlueshmemPtr shmem_addr, Bit#(n) data, BlueshmemUInt32 nint) provisos (Max#(65,n,n));
+import "BDPI" function Bit#(n) blueshmem_read(BlueshmemPtr shmem_addr, BlueshmemUInt32 nint) provisos (Max#(65,n,n));
 import "BDPI" function ActionValue#(BlueshmemSem) blueshmem_flag_allocate();
 import "BDPI" function BlueshmemUInt32 blueshmem_flag_val(BlueshmemSem sem_addr);
 import "BDPI" function Action blueshmem_flag_inc(BlueshmemSem sem_addr);
